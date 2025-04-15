@@ -31,7 +31,11 @@ app.post('/convert-pdf-url-to-html', async (req, res) => {
         fs.writeFileSync(pdfPath, response.data);
 
         // Step 2: Convert PDF to DOCX using ConvertAPI
-        const result = await convertapi.convert('docx', { File: pdfPath }, 'pdf');
+        // const result = await convertapi.convert('docx', { File: pdfPath }, 'pdf');
+        const result = await convertapi.convert('docx', {
+            File: pdfPath,
+            PageRange: '1-10'
+        }, 'pdf');        
         const savedFiles = await result.saveFiles(docxOutputDir);
 
         const docxPath = savedFiles[0];
